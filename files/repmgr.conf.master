@@ -1,0 +1,33 @@
+cluster=failover_test
+node=1
+node_name=pg_master
+conninfo='host=pg-master user=repmgr dbname=repmgr connect_timeout=20'
+use_replication_slots=1
+pg_basebackup_options='--xlog-method=f --progress --verbose'
+rsync_options=--archive --checksum --compress --progress --rsh="ssh -o \"StrictHostKeyChecking no\" -o \"Compression no\""
+pg_bindir=/usr/lib/postgresql/9.5/bin
+
+loglevel=DEBUG
+
+# failover setup 
+failover=automatic # one of 'automatic', 'manual' (default: manual)
+                    # defines the action to take in the event of upstream failure
+                    #
+                    # 'automatic': repmgrd will automatically attempt to promote the
+                    #    node or follow the new upstream node
+                    # 'manual': repmgrd will take no action and the mode will require
+                    #    manual attention to reattach it to replication
+
+promote_command='repmgr standby promote -f /etc/postgresql/9.5/main/repmgr.conf'
+follow_command='repmgr standby follow -f /etc/postgresql/9.5/main/repmgr.conf'
+
+monitor_interval_secs=3
+master_response_timeout=30
+reconnect_attempts=5
+reconnect_interval=5
+# change wait time for primary; before we bail out and exit when the primary
+# disappears, we wait 'reconnect_attempts' * 'retry_promote_interval_secs'
+# seconds; by default this would be half an hour, as 'retry_promote_interval_secs'
+# default value is 300)
+retry_promote_interval_secs=60
+priority=100

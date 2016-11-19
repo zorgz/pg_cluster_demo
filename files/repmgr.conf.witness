@@ -1,0 +1,7 @@
+cluster=failover_test
+node=3
+node_name=pg_witness
+conninfo='host=pg_witness user=repmgr dbname=repmgr'
+pg_bindir=/usr/lib/postgresql/9.5/bin
+
+loglevel=INFO
