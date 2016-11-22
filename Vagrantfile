@@ -59,7 +59,7 @@ Vagrant.configure(2) do |config|
     config.vm.provision "file", source: "files/start.conf", destination: "/tmp/postgres/start.conf"
     config.vm.provision "file", source: "repmgrd", destination: "/tmp/"
     config.vm.provision "file", source: "keepalived/keepalived.conf", destination: "/tmp/keepalived/etc/init/keepalived.conf"
-    
+
     config.vm.provision :shell, path: "bootstrap.sh"    
 
   config.vm.define :pg_master do |pg_master_config|
@@ -107,8 +107,8 @@ Vagrant.configure(2) do |config|
 
     pg_slave_config.vm.provision :shell, path: "provision_postgres.sh"
     # target user and postgres has to be in place before setting up ssh
-    pg_slave_config.vm.provision :shell, path: "ssh_passwordless.sh"
-    pg_slave_config.vm.provision :shell, path: "provision_slave.sh"
+    pg_slave_config.vm.provision :shell, path: "ssh_passwordless.sh" 
+    pg_slave_config.vm.provision :shell, path: "provision_slave.sh" args: "pg-master"
 
   end
 
