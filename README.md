@@ -5,9 +5,9 @@ Repmgrd + keepalived + pgbouncer
 
 ### General implementation notes 
 
-Two server configuration : Master-Hot standby
-pg_master
-pg_slave
+Two server configuration : 
++ pg_master - master 
++ pg_slave - hot standby 
 + balancer node (pgbouncer)
 
 Witness servers is not used in this setup
