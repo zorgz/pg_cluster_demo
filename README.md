@@ -1,13 +1,14 @@
-##Very simple PG clsuter setup for HA based on repmgrd 
-
+##Very simple PG clsuter setup for HA based on repmgrd
+====
 Requires vagrant + virtual box
+Repmgrd + keepalived + pgbouncer
 
 ### General implementation notes 
 
 Two server configuration : Master-Hot standby
 pg_master
 pg_slave
-+ balancer node (calcal
++ balancer node (pgbouncer)
 
 Witness servers is not used in this setup
 
@@ -25,6 +26,9 @@ Witness servers is not used in this setup
     pg (running/read-only)
     remmgrd (running)
     keepalived (stopped)
+  
+  balancer: 
+    pgbouncer (port:6432) -> IP:10.100.0.110 (keepalived virtual address)
 
 ### Auto failover mechanics: 
  Repmgrd process should be up and running in order to make autofailover possible.
