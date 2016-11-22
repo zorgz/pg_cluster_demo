@@ -14,7 +14,7 @@ sudo -u postgres createuser -s repmgr && \
 sudo -u postgres createdb repmgr -O repmgr && \
 find /tmp/postgres -maxdepth 1 -type f | sudo -u postgres xargs -I {} cp {} /etc/postgresql/9.5/main && \
 sudo -u postgres mkdir -p /var/lib/postgresql/repmgr || \
-sudo -u postgres cp /tmp/postgres/bin/* /var/lib/postgresql/repmgr/ && \
+sudo -u postgres cp /tmp/repmgrd/bin/* /var/lib/postgresql/repmgr/ && \
 sudo cp /tmp/keepalived/etc/init/keepalived.conf /etc/init/ && \
 sudo cp /tmp/keepalived/keepalived.conf /etc/keepalived/ && \
 sudo pg_ctlcluster 9.5 main restart -m immediate && \
