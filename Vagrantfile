@@ -57,8 +57,9 @@ Vagrant.configure(2) do |config|
     config.vm.provision "file", source: "files/postgresql.conf", destination: "/tmp/postgres/postgresql.conf"
     config.vm.provision "file", source: "files/pg_hba.conf", destination: "/tmp/postgres/pg_hba.conf"
     config.vm.provision "file", source: "files/start.conf", destination: "/tmp/postgres/start.conf"
-    config.vm.provision "file", source: "repmgrd", destination: "/tmp/"      
-
+    config.vm.provision "file", source: "repmgrd", destination: "/tmp/"
+    config.vm.provision "file", source: "keepalived/keepalived.conf", destination: "/tmp/keepalived/etc/init/keepalived.conf"
+    
     config.vm.provision :shell, path: "bootstrap.sh"    
 
   config.vm.define :pg_master do |pg_master_config|
@@ -77,6 +78,7 @@ Vagrant.configure(2) do |config|
     end
 
     pg_master_config.vm.provision "file", source: "files/repmgr.conf.master", destination: "/tmp/postgres/repmgr.conf"
+    pg_master_config.vm.provision "file", source: "keepalived/keepalived.conf.master", destination: "/tmp/keepalived/keepalived.conf"
 
     pg_master_config.vm.provision :shell, path: "provision_postgres.sh"
     # target user and postgres has to be in place before settings up ssh
@@ -100,7 +102,8 @@ Vagrant.configure(2) do |config|
       v.customize ['modifyvm', :id, '--natdnsproxy1', 'on']
     end
 
-    pg_slave_config.vm.provision "file", source: "files/repmgr.conf.slave", destination: "/tmp/postgres/repmgr.conf"    
+    pg_slave_config.vm.provision "file", source: "files/repmgr.conf.slave", destination: "/tmp/postgres/repmgr.conf"
+    pg_slave_config.vm.provision "file", source: "keepalived/keepalived.conf.slave", destination: "/tmp/keepalived/keepalived.conf"
 
     pg_slave_config.vm.provision :shell, path: "provision_postgres.sh"
     # target user and postgres has to be in place before setting up ssh

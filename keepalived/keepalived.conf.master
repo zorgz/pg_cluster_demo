@@ -1,0 +1,16 @@
+vrrp_instance pgmaster {
+        interface eth1
+        state MASTER
+        virtual_router_id 192
+        priority 100
+        authentication {
+            auth_type PASS
+            auth_pass passwordforcluster
+        }
+        track_script {
+            chk_http_port
+        }
+        virtual_ipaddress {
+                10.100.0.110/32 dev eth1
+        }
+}

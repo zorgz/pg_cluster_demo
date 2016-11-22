@@ -18,8 +18,8 @@ failover=automatic # one of 'automatic', 'manual' (default: manual)
                     # 'manual': repmgrd will take no action and the mode will require
                     #    manual attention to reattach it to replication
 
-promote_command='repmgr standby promote -f /etc/postgresql/9.5/main/repmgr.conf'
-follow_command='repmgr standby follow -f /etc/postgresql/9.5/main/repmgr.conf'
+promote_command='sh /var/lib/postgresql/repmgr/promote.sh' 
+follow_command='sh /var/lib/postgresql/repmgr/follow.sh'
 
 monitor_interval_secs=3
 master_response_timeout=30
