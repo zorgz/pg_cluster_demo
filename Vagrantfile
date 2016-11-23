@@ -108,7 +108,7 @@ Vagrant.configure(2) do |config|
     pg_slave_config.vm.provision :shell, path: "provision_postgres.sh"
     # target user and postgres has to be in place before setting up ssh
     pg_slave_config.vm.provision :shell, path: "ssh_passwordless.sh" 
-    pg_slave_config.vm.provision :shell, path: "provision_slave.sh" args: "pg-master"
+    pg_slave_config.vm.provision :shell, path: "provision_slave.sh", args: "pg-master"
 
   end
 
