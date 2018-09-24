@@ -1,4 +1,4 @@
-##Very simple PG clsuter setup for HA based on repmgrd
+##Very simple PG cluster setup for HA based on repmgrd
 ====
 Requires vagrant + virtual box
 Repmgrd + keepalived + pgbouncer
